@@ -7,7 +7,7 @@ defmodule Api.Todo.Task do
   schema "tasks" do
     field :title, :string
     field :due_date, :utc_datetime_usec
-    field :done, :boolean, default: false
+    field :status, Ecto.Enum, values: [:todo, :progress, :done], default: :todo
     belongs_to :category, Api.Todo.Category
     timestamps()
   end
@@ -15,7 +15,7 @@ defmodule Api.Todo.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :due_date, :done])
-    |> validate_required([:title, :due_date, :done])
+    |> cast(attrs, [:title, :due_date, :status])
+    |> validate_required([:title, :due_date, :status])
   end
 end

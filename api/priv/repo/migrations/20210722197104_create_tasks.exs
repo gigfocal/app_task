@@ -6,10 +6,11 @@ defmodule Api.Repo.Migrations.CreateTasks do
       add :id, :binary_id, primary_key: true
       add :title, :string
       add :due_date, :utc_datetime_usec
-      add :done, :boolean, default: false
       add :category_id, references(:categories, on_delete: :nilify_all, type: :uuid)
       timestamps()
     end
     create index(:tasks, [:category_id])
+    execute "ALTER TABLE tasks
+      ADD status ENUM('todo', 'progress', 'done');"
   end
 end
