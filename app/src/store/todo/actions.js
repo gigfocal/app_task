@@ -61,7 +61,7 @@ export function delete_task({commit, dispatch}, params) {
   return new Promise((resolve, reject) => {
     this.$axios.delete(`todos/tasks/${params['id']}`)
       .then((r => {
-        commit('update_task', task);
+        commit('delete_task', task);
         return resolve(r);
       }))
       .catch((e => {
