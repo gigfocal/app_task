@@ -7,13 +7,19 @@ defmodule ApiWeb.Todo.TaskController do
   action_fallback ApiWeb.FallbackController
 
   def index(conn, %{"action" => "export"})do
-
+    tasks = Todo.list_tasks()
+    Api.ExportCsv.write(tasks)
+    send_download(conn, 200, send_download(
+      conn,
+      {:file, "tasks.csv"},
+      content_type: "application/csv",
+      filename: "tasks.csv"
+    ))
   end
 
 
 
   def index(conn, params) do
-    IO.inspect params
     tasks = Todo.list_tasks()
     render(conn, "index.json", tasks: tasks)
   end
