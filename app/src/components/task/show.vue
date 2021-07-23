@@ -16,7 +16,7 @@
                   <q-item @click="show_edit_form = true" clickable v-close-popup>
                     <q-item-section>Edit</q-item-section>
                   </q-item>
-                  <q-item @click="delete_task" clickable v-close-popup>
+                  <q-item @click="delete_task(task)" clickable v-close-popup>
                     <q-item-section>Delete</q-item-section>
                   </q-item>
                 </q-list>
@@ -45,14 +45,36 @@ export default {
   },
   data() {
     return {
-      show_edit_form: false
+      confirm_delete: false,
+      show_edit_form: false,
     }
   },
   methods: {
     delete_task(task) {
+        this.$q.dialog({
+          title: 'Confirm',
+          message: 'Are you sure you want to delete this task ?',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          this.$q.loading.show()
+          this.$store.dispatch('todo/delete_task', {task: task, id: task.id})
+            .then(r => {
+              this.$q.loading.hide()
+            })
+            .catch(e => {
+              this.$q.loading.hide()
+            })
+        }).onOk(() => {
+          // console.log('>>>> second OK catcher')
+        }).onCancel(() => {
+          // console.log('>>>> Cancel')
+        }).onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        })
+      }
 
     }
-  }
 }
 </script>
 
