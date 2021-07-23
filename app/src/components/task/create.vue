@@ -77,7 +77,7 @@ export default {
     },
     date_in_the_past(){
       let now = new Date();
-      return this.due_date >= now;
+      return this.task.due_date >= now;
     }
   },
   created(){

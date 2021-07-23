@@ -1,16 +1,23 @@
 defmodule ApiWeb.Todo.TaskView do
   use ApiWeb, :view
-  alias ApiWeb.TaskView
+  alias ApiWeb.Todo.TaskView
 
   def render("index.json", %{tasks: tasks}) do
-    %{data: render_many(tasks, TaskView, "task.json")}
+    %{tasks: render_many(tasks, TaskView, "task.json")}
   end
 
   def render("show.json", %{task: task}) do
-    %{data: render_one(task, TaskView, "task.json")}
+    %{task: render_one(task, TaskView, "task.json")}
   end
 
   def render("task.json", %{task: task}) do
-    %{id: task.id}
+    %{
+      id: task.id,
+      status: task.status,
+      due_date: task.due_date,
+      title: task.title,
+      inserted_at: task.inserted_at,
+      updated_at: task.updated_at
+    }
   end
 end
