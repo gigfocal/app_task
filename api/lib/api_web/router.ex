@@ -7,7 +7,7 @@ defmodule ApiWeb.Router do
 
   scope "/api", ApiWeb do
     pipe_through :api
-    scope "/todo", Todo do
+    scope "/todos", Todo do
       resources "/tasks", TaskController, only: [:index, :show, :create, :update, :delete]
     end
   end
