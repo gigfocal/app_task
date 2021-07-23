@@ -1,15 +1,17 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' })
+axios.defaults.headers.post['Content-Type'] = "application/json";
+axios.defaults.headers.get['Accept'] = 'application/json';
+axios.defaults.baseURL = `http://localhost:4000/api`;
+axios.defaults.timeout = 60000;
 
-export default boot(({ app }) => {
+const api = axios;
+
+export default boot(({ app, store, router, ssrContext }) => {
+  app.axios = axios;
+  store.$axios = axios;
+  router.$axios = axios;
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
   app.config.globalProperties.$axios = axios
@@ -21,4 +23,6 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
-export { api }
+export {api, axios}
+
+
