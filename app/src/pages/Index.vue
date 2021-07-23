@@ -31,18 +31,16 @@ export default defineComponent({
   name: 'PageIndex',
   components: {Show},
   data() {
-    return {
-
-    }
+    return {}
   },
   computed: {
-    todos () {
+    todos() {
       return this.$store.getters['todo/todos']
     },
-    progress () {
+    progress() {
       return this.$store.getters['todo/progress']
     },
-    done () {
+    done() {
       return this.$store.getters['todo/done']
     }
   }

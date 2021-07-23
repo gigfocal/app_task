@@ -1,1 +1,22 @@
-// app global css in SCSS form
+.q-dialog__backdrop {
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.q_menu:before {
+  border-top: 10px solid #fff;
+  bottom: -10px;
+  filter: drop-shadow(0 2px 2px rgba(52, 73, 94, .1));
+}
+.q-menu {
+  position: fixed !important;
+  display: inline-block;
+  max-width: 95vw;
+  box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 53, 136, .15) !important;
+  border-radius: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: 0;
+  max-height: 65vh;
+  z-index: 6000;
+}
