@@ -24,24 +24,64 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {defineComponent, onMounted, computed} from 'vue';
 import Show from "components/task/show";
+import {useQuasar} from 'quasar'
+import {useStore} from 'vuex'
 
 export default defineComponent({
-  name: 'PageIndex',
   components: {Show},
-  data() {
-    return {}
-  },
-  computed: {
-    todos() {
-      return this.$store.getters['todo/todos']
-    },
-    progress() {
-      return this.$store.getters['todo/progress']
-    },
-    done() {
-      return this.$store.getters['todo/done']
+  name: 'PageIndex',
+  setup() {
+    const $store = useStore();
+    const $q = useQuasar()
+    /*
+    Get todos, progress and done tasks
+     from store
+     */
+    const todos = computed({
+      get: () => $store.getters["todo/todos"],
+      set: val => {
+
+      }
+    })
+    const progress = computed({
+      get: () => $store.getters["todo/progress"],
+      set: val => {
+
+      }
+    })
+
+    const done = computed({
+      get: () => $store.getters["todo/done"],
+      set: val => {
+
+      }
+    })
+
+    /*
+    Fetch tasks all tasks
+     */
+    function fetch_tasks() {
+      $q.loading.show()
+      $store.dispatch('todo/list_tasks').then(r => {
+        $q.loading.hide()
+      })
+        .catch(e => {
+          $q.loading.show()
+        })
+    }
+
+    /*
+    Fetch tasks when component is initialized
+     */
+    onMounted(() => {
+      fetch_tasks()
+    })
+    return {
+      todos,
+      progress,
+      done
     }
   }
 })

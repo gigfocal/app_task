@@ -3,7 +3,7 @@ export function store_tasks (state, tasks) {
 }
 
 export function update_tasks_list (state, task){
-  this.state.tasks.unshift(task)
+  state.tasks.unshift(task)
 }
 
 export function update_task (state, task){

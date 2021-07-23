@@ -15,7 +15,7 @@ export function add_task({commit, dispatch}, params) {
   return new Promise((resolve, reject) => {
     this.$axios.post('todos/tasks', params)
       .then((r => {
-        commit('update_tasks_list', r.data['tasks']);
+        commit('update_tasks_list', r.data['task']);
         return resolve(r);
       }))
       .catch((e => {

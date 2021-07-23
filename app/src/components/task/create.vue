@@ -48,7 +48,7 @@
       />
     </q-card-section>
     <q-card-section>
-      <q-btn type="submit" class="full-width" unelevated color="green" label="Add Task" no-caps/>
+      <q-btn type="submit" :loading="submitting" class="full-width" unelevated color="green" label="Add Task" no-caps/>
     </q-card-section>
   </q-form>
 </template>
@@ -89,7 +89,7 @@ export default {
     },
     add_task(){
       this.submitting = true
-      this.$store.dispatch('todo/add_task', this.task).then((r) => {
+      this.$store.dispatch('todo/add_task', {task: this.task}).then((r) => {
         this.submitting = false
       })
       .catch((e) => {
