@@ -6,7 +6,20 @@ defmodule ApiWeb.Todo.TaskController do
 
   action_fallback ApiWeb.FallbackController
 
-  def index(conn, _params) do
+  def index(conn, %{"action" => "export"})do
+
+  end
+
+
+
+  def index(conn, params) do
+    IO.inspect params
+    tasks = Todo.list_tasks()
+    render(conn, "index.json", tasks: tasks)
+  end
+
+  def create(conn,  %{"file" => %Plug.Upload{path: path}})do
+    imports = ImportCsv.import(path)
     tasks = Todo.list_tasks()
     render(conn, "index.json", tasks: tasks)
   end

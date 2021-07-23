@@ -36,6 +36,7 @@
 
 <script>
 import Edit from "components/task/edit";
+import mitt from 'mitt'
 
 export default {
   name: "show",
@@ -74,7 +75,13 @@ export default {
         })
       }
 
-    }
+    },
+  mounted() {
+    const emitter = mitt()
+    emitter.on('update_edit_form_popup_status', function (status) {
+      this.show_edit_form = false;
+    });
+  }
 }
 </script>
 

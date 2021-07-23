@@ -10,6 +10,25 @@ export function list_tasks({commit, dispatch}, params) {
       }))
   })
 }
+export function import_tasks({commit, dispatch}, params) {
+  return new Promise((resolve, reject) => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    let form_data = new FormData()
+    form_data.append('file', params['file']);
+    this.$axios.post(`todos/tasks/`, form_data, config)
+      .then((r => {
+        commit('store_tasks', r.data['tasks']);
+        return resolve(r);
+      }))
+      .catch((e => {
+        return reject(e);
+      }))
+  })
+}
 
 export function add_task({commit, dispatch}, params) {
   return new Promise((resolve, reject) => {

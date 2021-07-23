@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import mitt from 'mitt'
 import { date } from 'quasar'
 export default {
   name: "create",
@@ -88,12 +89,15 @@ export default {
       return this.task.due_date = due_date
     },
     add_task(){
+      const emitter = mitt()
       this.submitting = true
       this.$store.dispatch('todo/add_task', {task: this.task}).then((r) => {
         this.submitting = false
+        emitter.emit('update_form_popup_status', false);
       })
       .catch((e) => {
         this.submitting = false
+        emitter.emit('update_form_popup_status', false);
       })
     }
   },

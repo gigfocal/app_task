@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import mitt from 'mitt'
 export default {
   name: "edit",
   props: {
@@ -82,12 +83,15 @@ export default {
   },
   methods: {
     edit_details() {
+      const emitter = mitt()
       this.submitting = true
       this.$store.dispatch('todo/update_task', {task: this.edit_task, id: this.edit_task.id}).then((r) => {
         this.submitting = false
+        emitter.emit('update_edit_form_popup_status', false);
       })
         .catch((e) => {
           this.submitting = false
+          emitter.emit('update_edit_form_popup_status', false);
         })
     }
   },

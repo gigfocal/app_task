@@ -13,7 +13,10 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "mitt": "^3.0.0",
     "quasar": "^2.0.0",
+    "tiny-emitter": "^2.1.0",
+    "vue-json-excel": "^0.3.0",
     "vuedraggable": "^4.0.3",
     "vuex": "^4.0.1"
   },
